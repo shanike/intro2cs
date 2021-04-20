@@ -1,5 +1,11 @@
 .idea
-**/*/
-*/
-!*.zip
-!**/*.zip
+*
+
+!ex1/
+!ex1/*.zip
+
+!ex2/
+!ex2/*.zip
+
+!ex3/
+!ex3/*.zip
