@@ -1,15 +1,6 @@
-.idea
 *
 
-!ex1/
-!ex1/*.zip
+!ex*/
+!ex*/*.zip
 
-!ex2/
-!ex2/*.zip
-
-!ex3/
-!ex3/*.zip
-
-!ex4/
-!ex4/*.zip
-
+!ex5/*.py
