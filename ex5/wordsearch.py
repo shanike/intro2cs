@@ -27,22 +27,22 @@ def main():
 	# _print_matrix(matrix)
 	dirs = sys.argv[DIRECTIONS]
 	# print("-" * 30)
-	results_dict = find_words(wordlist, matrix, dirs)
-	if not results_dict:
+	results = find_words(wordlist, matrix, dirs)  # Tuple type
+	if not results:
 		return  # end of program
 	# print("\nFINAL: ", results_dict, end="\n\n")
-	write_output(results_dict, sys.argv[3])
+	write_output(results, sys.argv[3])
 
 
 # def _print_matrix(matrix):
-	# print("matrix:")
-	# print("[")
-	# for row in range(len(matrix)):
-	# 	print(" [", end=" ")
-	# 	for colum/n in range(len(matrix[0])):
-	# 		print(f"{matrix[row][column]}", end=", ")
-	# 	print("]")
-	# print("]")
+# print("matrix:")
+# print("[")
+# for row in range(len(matrix)):
+# 	print(" [", end=" ")
+# 	for column in range(len(matrix[0])):
+# 		print(f"{matrix[row][column]}", end=", ")
+# 	print("]")
+# print("]")
 
 
 def read_wordlist(file_name: str):
@@ -74,7 +74,7 @@ def find_words(word_list: [str], matrix: [[str]], directions: str) -> [Result]:
 	:param word_list: list of words to search
 	:param matrix: 2d list representing the letter matrix: [ [ letter, letter ], [letter, letter] ]
 	:param directions: part or all of: "udrlwxyz"
-	:return: Result[] (== [ (word, count), (word, count) ]) a list of words from <word_list> and a count of their appearance in <matrix>
+	:return: Result[] (== [ (word, count), (word, count) ]) a list of tuples made of words from <word_list> and a count of their appearance in <matrix>
 	"""
 	results_dict = {}
 	dir_funcs = {"u": {"func": search_direction_u, "searched": False},  # up
@@ -110,7 +110,7 @@ def find_words(word_list: [str], matrix: [[str]], directions: str) -> [Result]:
 			# if there is a need to check that ALL directions from user are valid even earlier than here - it will come out less efficient (another loop on directions).
 			print(f"{user_direction} is not a valid direction")
 			return False
-	return results_dict
+	return list(results_dict.items())
 
 
 def search_direction_u(col, row, word_list, matrix, results_dict, number_of_columns, number_of_rows):
@@ -285,7 +285,7 @@ def write_output(results: [Result], filename):
 	"""
 	# print("write to output", filename)
 	with open(filename, 'w') as output_file:
-		for name, count in results.items():
+		for name, count in results:
 			output_file.write(name + "," + str(count) + "\n")
 
 
