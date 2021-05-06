@@ -4,3 +4,5 @@
 !ex*/*.zip
 
 !ex5/*.py
+!ex6/*.py  # incase need backup
+
