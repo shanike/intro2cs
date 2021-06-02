@@ -28,8 +28,9 @@ class Game:
         :param board: An object of type board
         """
         # You may assume board follows the API
-        print('\n-----------\ninitial board:\n-----------\n', board)
         self.board = board
+        print('\n-----------\ninitial board:\n-----------\n')
+        print(board);
 
     def __single_turn(self):
         """
