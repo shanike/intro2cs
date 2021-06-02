@@ -6,5 +6,6 @@
 !ex5/*.py
 !ex6/*.py  # incase need backup
 
-!ex7/ex7_done.py
+!ex7/*
 
+!ex9/*
