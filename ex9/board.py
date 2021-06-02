@@ -28,38 +28,24 @@ class Board:
         """
         # The game may assume this function returns a reasonable representation
         # of the board for printing, but may not assume details about it.
-        
+        cells_to_print = ""
+        curr_row = ""
+
         cells = self.cell_list()
-        cnt = 0
-        for cell in cells:
-            if cnt % 7 == 0:
-                print()
-            value = self.cell_content(cell)
-            print(value if value else "-", end="  ")
-            cnt += 1
-
-        return ""
-        
-        bo = []
-        for i in range(Board.BOARD_LENGTH):
-            bo.append([])
-            for j in range(Board.BOARD_LENGTH):
-                bo[i].append("-")
-
-        for car_name in self.cars:
-            car = self.cars[car_name]
-            for row, col in car.car_coordinates():
-                bo[row][col] = car.get_name()
-
-        print()
-        for row_i in range(len(bo)):
-            for cell in bo[row_i]:
-                print(cell, end="  ")
-            if row_i == self.target_location()[0]:
-                print("E")
+        for i in range(len(cells)):
+            cell = cells[i]
+            if cell == self.target_location():
+                value = "-> EXIT"
             else:
-                print('*')
-        return ""
+                value = self.cell_content(cell)
+            if not value:
+                value = "-"
+            curr_row += value + "  "
+            if i+1 == len(cells) or cells[i][0] != cells[i+1][0]:
+                cells_to_print += curr_row+"\n"
+                curr_row = ""
+
+        return cells_to_print
 
     def cell_list(self):
         """ This function returns the coordinates of cells in this board
@@ -73,7 +59,7 @@ class Board:
                 loc = (row, col)
                 coords.append(loc)
         coords.append(self.target_location())
-        return coords
+        return sorted(coords)
 
     def possible_moves(self):
         """ This function returns the legal moves of all cars in this board
@@ -92,7 +78,8 @@ class Board:
                 for required_cell in required_cells:
                     all_cells = self.cell_list()
                     # if cell is empty, move is legal
-                    if (required_cell in all_cells[0] or required_cell == all_cells[1]) and not self.cell_content(required_cell):
+                    if required_cell in all_cells and not self.cell_content(required_cell):
+                        # required cell is on board, and is empty
                         legal_moves.append(
                             (car.get_name(), car_poss_move, car_poss_moves[car_poss_move]))
         return legal_moves
@@ -128,6 +115,9 @@ class Board:
         # implement your code and erase the "pass"
 
         for car_coord in car.car_coordinates():
+            if car_coord not in self.cell_list():
+                # cell is not on board
+                return False
             if self.cell_content(car_coord):
                 # cell is occupied, not good
                 return False
