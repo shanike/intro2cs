@@ -8,7 +8,9 @@ from helper import load_json
 
 class Game:
     """
-    Add class description here
+    class Game is in charge of running a rush-hour game.
+    the class runs a game, which gives the user a turn to play till either user won or user quit
+    this class uses the other classes: Board and Car
     """
     POSSIBLE_CAR_NAMES = ('R', 'G', 'W', 'O', 'B', 'Y')
     USED_CAR_NAMES = []
