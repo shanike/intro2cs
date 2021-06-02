@@ -4,6 +4,7 @@ MOVES = {"u": "u", "d": "d", "l": "l", "r": "r"}
 class Car:
     """
     A car with the properties name, length, location, orientation
+    the car is meant to be placed on a Board as part of a rush-hour Game
     """
 
     def __init__(self, name, length, location, orientation):
